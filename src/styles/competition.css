@@ -1,0 +1,125 @@
+.list-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.competition-list {
+  border-top: 1px solid var(--line);
+}
+
+.competition {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 4px;
+  color: inherit;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.competition:hover strong {
+  color: var(--accent);
+}
+
+.competition__info {
+  display: grid;
+}
+
+.competition strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.competition__info span,
+.competition time {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.competition time {
+  white-space: nowrap;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.toolbar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.event-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.event-option {
+  position: relative;
+  min-height: 88px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  color: #334250;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.event-option:hover {
+  border-color: #8aaee5;
+}
+
+.event-option:has(input:checked) {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.event-option:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.event-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.event-option .cubing-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.event-name {
+  margin-top: auto;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.print-preview {
+  margin-top: 32px;
+  padding: 24px 16px;
+  overflow-x: auto;
+  background: #eef0f3;
+  border-radius: 4px;
+}
+
+.print-preview:empty {
+  display: none;
+}

@@ -1,0 +1,77 @@
+.form {
+  display: grid;
+  gap: 20px;
+  max-width: 480px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.region-controls select {
+  width: 100%;
+  padding: 9px 10px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #cbd5df;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.field input:focus,
+.field select:focus,
+.region-controls select:focus {
+  border-color: var(--accent);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.region-controls {
+  display: grid;
+  gap: 6px;
+  padding-left: 26px;
+}
+
+.region-controls[hidden] {
+  display: none;
+}
+
+.region-controls .label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.region-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 8px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.form-actions .message {
+  margin: 0;
+}

@@ -1,0 +1,42 @@
+.topbar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.content {
+  width: min(100%, 920px);
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.login {
+  max-width: 420px;
+  margin: 72px auto 0;
+}
+
+.login h1 {
+  font-size: 32px;
+}
+
+.login p:not(.message) {
+  margin: 12px 0 24px;
+  color: var(--muted);
+}
+
+.empty {
+  padding: 48px 0;
+  margin: 0;
+  color: var(--muted);
+  text-align: center;
+}
