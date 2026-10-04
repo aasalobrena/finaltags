@@ -1,0 +1,50 @@
+{
+  "$id": "https://aasalobrena.github.io/finaltags/wcif-extension.json",
+  "title": "FinalTags competition settings",
+  "description": "Describes the `data` of the WCIF extension `finaltags.competition`, which FinalTags (https://aasalobrena.github.io/finaltags/) attaches to a competition. It stores the settings used to print the table cards of each event's final round. Every property is optional; FinalTags falls back to the defaults noted below.",
+  "type": "object",
+  "properties": {
+    "logoUrl": {
+      "type": "string",
+      "description": "Absolute URL of the competition logo, printed on every card. An empty string means no logo.",
+      "default": ""
+    },
+    "paperSize": {
+      "type": "string",
+      "description": "Paper size used when printing the cards, two cards per sheet. `a4` is 210 x 297 mm and `letter` is 8.5 x 11 in.",
+      "enum": ["a4", "letter"],
+      "default": "a4"
+    },
+    "region": {
+      "type": "object",
+      "description": "Defines who counts as a local competitor and whether locals are placed first.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Kind of region that defines locals. With `world` every competitor is local.",
+          "enum": ["world", "continent", "country"]
+        },
+        "id": {
+          "type": "string",
+          "description": "For `country`, the ISO 3166-1 alpha-2 code used by the WCA, e.g. `ES`. For `continent`, the WCA continent id: `_Africa`, `_Asia`, `_Europe`, `_North America`, `_Oceania` or `_South America`. Not used when `type` is `world`."
+        },
+        "prioritizeLocals": {
+          "type": "boolean",
+          "description": "When true, local competitors are listed first and their seeds are numbered among locals only. When false, the region is stored but has no effect on the cards."
+        }
+      },
+      "required": ["type", "id", "prioritizeLocals"]
+    }
+  },
+  "examples": [
+    {
+      "logoUrl": "https://example.com/logo.png",
+      "paperSize": "letter",
+      "region": {
+        "type": "country",
+        "id": "US",
+        "prioritizeLocals": true
+      }
+    }
+  ]
+}

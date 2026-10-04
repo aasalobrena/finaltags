@@ -1,0 +1,41 @@
+.link-button {
+  padding: 0;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  font-size: 14px;
+}
+
+.link-button:hover {
+  color: var(--accent);
+}
+
+.button {
+  padding: 8px 14px;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.button:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.message {
+  margin: 16px 0 0;
+  color: var(--ok);
+  font-size: 14px;
+}
+
+.message--error {
+  color: var(--error);
+}
