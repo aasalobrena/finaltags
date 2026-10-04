@@ -212,18 +212,18 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       '@wca/helpers':
-        specifier: 1.1.7
-        version: 1.1.7
+        specifier: 1.1.9
+        version: 1.1.9
     devDependencies:
       typescript:
         specifier: 7.0.2
         version: 7.0.2
       vite:
-        specifier: 8.3.1
-        version: 8.3.1(@types/node@24.10.0)
+        specifier: 8.3.2
+        version: 8.3.2(@types/node@24.10.0)
       vitest:
-        specifier: ^5.0.3
-        version: 5.0.3(@types/node@24.10.0)(vite@8.3.1(@types/node@24.10.0))
+        specifier: 5.0.3
+        version: 5.0.3(@types/node@24.10.0)(vite@8.3.2(@types/node@24.10.0))
 
 packages:
 
@@ -488,8 +488,8 @@ packages:
   '@vitest/spy@5.0.3':
     resolution: {integrity: sha512-XhFysQTB8AZ+P4gMi+Lpo99vg2AZi0qKpaB9yXQl37+CaMEAPO3iH/wGVnSyL5MPERiLezpqTVtrR6UZH5GCXg==}
 
-  '@wca/helpers@1.1.7':
-    resolution: {integrity: sha512-W7cCiEnqFoc1we7TCuYv+fFmnJS+/ot+TT/XZdXr4U+JnVQKgJ9kefG9XjVbBEJ/UNrjrhGrYJ7hDhxvbEYPBg==}
+  '@wca/helpers@1.1.9':
+    resolution: {integrity: sha512-hCi+VnPvRanvVIfZkDnZ+FbcnwUGwD11hsdyrmuUUzhICVxaEyDKQGMc5i04zZkLqe//n8vwnt6uvauLxluGbw==}
 
   assertion-error@2.0.1:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
@@ -656,8 +656,8 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  vite@8.3.1:
-    resolution: {integrity: sha512-/bvH9E9tmCXRGp2uXY3WbOldqpTwFkbha/8ANaEQ6VkxhH60KyqLwgZq6lG2y+4uT55x9+9eUHMpQ7uGnOCKjA==}
+  vite@8.3.2:
+    resolution: {integrity: sha512-SQr1x6W5vVSbROg7vsyXIaxK9b0G7zsT68acdWWRmnBUsgDieLCRG+Rep9WdZgcposvv/GSnr4GUUBqB3vXq6w==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -881,18 +881,18 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vitest/mocker@5.0.3(vite@8.3.1(@types/node@24.10.0))':
+  '@vitest/mocker@5.0.3(vite@8.3.2(@types/node@24.10.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.3
       estree-walker: 3.0.3
       magic-string: 1.4.2
     optionalDependencies:
-      vite: 8.3.1(@types/node@24.10.0)
+      vite: 8.3.2(@types/node@24.10.0)
 
   '@vitest/spy@5.0.3': {}
 
-  '@wca/helpers@1.1.7': {}
+  '@wca/helpers@1.1.9': {}
 
   assertion-error@2.0.1: {}
 
@@ -1042,7 +1042,7 @@ snapshots:
   undici-types@7.16.0:
     optional: true
 
-  vite@8.3.1(@types/node@24.10.0):
+  vite@8.3.2(@types/node@24.10.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -1053,10 +1053,10 @@ snapshots:
       '@types/node': 24.10.0
       fsevents: 2.3.3
 
-  vitest@5.0.3(@types/node@24.10.0)(vite@8.3.1(@types/node@24.10.0)):
+  vitest@5.0.3(@types/node@24.10.0)(vite@8.3.2(@types/node@24.10.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.3(vite@8.3.1(@types/node@24.10.0))
+      '@vitest/mocker': 5.0.3(vite@8.3.2(@types/node@24.10.0))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -1067,7 +1067,7 @@ snapshots:
       tinybench: 6.2.0
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.1(@types/node@24.10.0)
+      vite: 8.3.2(@types/node@24.10.0)
       why-is-node-running: 3.2.1
     optionalDependencies:
       '@types/node': 24.10.0
