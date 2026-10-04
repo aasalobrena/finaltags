@@ -45,7 +45,7 @@ Sign-in uses the WCA OAuth authorization flow with the `public` and `manage_comp
 
 The app requests competition, WCIF, country, and psych-sheet data from the WCA API. Saving settings updates the competition WCIF and requires the account to have permission to manage that competition. The app does not have its own backend.
 
-Competition settings are stored in the WCIF extension described by [`public/wcif-extensions.json`](public/wcif-extensions.json). They include an optional logo URL, paper size, and local-prioritization settings.
+Competition settings are stored in the WCIF extension described by [`public/wcif-extension.json`](public/wcif-extension.json). They include an optional logo URL, paper size, and local-prioritization settings.
 
 ## Tests and continuous integration
 
