@@ -60,6 +60,18 @@ export class WcaClient {
     return (await response.json()) as T;
   }
 
+  async put(path: string, body: BodyInit): Promise<void> {
+    const response = await this.#fetchWithRateLimit(`${WCA_API_BASE}${path}`, {
+      method: "PUT",
+      headers: this.#headers({ "Content-Type": "application/json" }),
+      body,
+    });
+
+    if (!response.ok) {
+      throw new WcaApiError(response.status);
+    }
+  }
+
   async getAll<T>(path: string): Promise<T[]> {
     const results: T[] = [];
 

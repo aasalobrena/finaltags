@@ -286,19 +286,15 @@ export const createApp = (app: HTMLElement) => {
         region,
         paperSize,
       });
+      const wcif = { ...state.wcif, extensions };
 
-      if (!state.wcif.formatVersion) {
+      if (!wcif.formatVersion) {
         throw new Error("The WCIF has no formatVersion.");
       }
 
-      await patchCompetitionExtensions(
-        client,
-        state.competition.id,
-        state.wcif.formatVersion,
-        extensions,
-      );
+      await patchCompetitionExtensions(client, state.competition.id, wcif);
 
-      state.wcif.extensions = extensions;
+      state.wcif = wcif;
       state.message = "Saved";
       renderConfiguration(app, state);
     } catch (error) {

@@ -47,18 +47,23 @@ export const fetchCompetitionWcif = (
     `/competitions/${encodeURIComponent(competitionId)}/wcif/version/${WCIF_MAJOR_VERSION}/`,
   );
 
-export const patchCompetitionExtensions = (
+export const patchCompetitionExtensions = async (
   client: WcaClient,
   competitionId: string,
-  formatVersion: string,
-  extensions: WcifWithParticipation["extensions"],
-) =>
-  client.get(`/competitions/${encodeURIComponent(competitionId)}/wcif`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      formatVersion,
-      id: competitionId,
-      extensions,
-    }),
+  wcif: WcifWithParticipation,
+) => {
+  const headers = { "Content-Type": "application/json" };
+  const body = JSON.stringify({
+    formatVersion: wcif.formatVersion,
+    id: competitionId,
+    extensions: wcif.extensions,
   });
+
+  await client.put("/competitions/wcif/check", body);
+
+  return client.get(`/competitions/${encodeURIComponent(competitionId)}/wcif`, {
+    method: "PATCH",
+    headers,
+    body,
+  });
+};
