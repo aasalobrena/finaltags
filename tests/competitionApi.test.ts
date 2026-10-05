@@ -1,10 +1,52 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { patchCompetitionExtensions } from "../src/api/competitionApi";
+import {
+  fetchManagedCompetitions,
+  patchCompetitionExtensions,
+} from "../src/api/competitionApi";
 import { WcaApiError, WcaClient } from "../src/api/wcaClient";
 import type { WcifWithParticipation } from "../src/types/wcif";
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  vi.useRealTimers();
+});
+
+describe("fetchManagedCompetitions", () => {
+  it("keeps competitions from the last week and sorts upcoming ones first", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-10-05T12:00:00"));
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify([
+            { id: "far-future", name: "Far future", start_date: "2027-01-01" },
+            { id: "too-old", name: "Too old", start_date: "2026-09-27" },
+            { id: "next-week", name: "Next week", start_date: "2026-10-12" },
+            { id: "one-week-ago", name: "One week ago", start_date: "2026-09-28" },
+            { id: "soon", name: "Soon", start_date: "2026-10-06" },
+            { id: "no-date", name: "No date" },
+          ]),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        ),
+      )
+      .mockResolvedValueOnce(
+        new Response("[]", {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await fetchManagedCompetitions(new WcaClient());
+
+    expect(result.competitions.map(({ id }) => id)).toEqual([
+      "one-week-ago",
+      "soon",
+      "next-week",
+      "far-future",
+    ]);
+  });
 });
 
 describe("patchCompetitionExtensions", () => {

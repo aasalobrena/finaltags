@@ -8,6 +8,14 @@ export const fetchManagedCompetitions = async (client: WcaClient) => {
   const competitions = await client.getAll<ApiCompetition>(
     "/competitions?managed_by_me=true",
   );
+  const cutoff = new Date();
+  cutoff.setHours(0, 0, 0, 0);
+  cutoff.setDate(cutoff.getDate() - 7);
+  const cutoffDate = [
+    cutoff.getFullYear(),
+    String(cutoff.getMonth() + 1).padStart(2, "0"),
+    String(cutoff.getDate()).padStart(2, "0"),
+  ].join("-");
 
   let countries: ApiCountry[] = [];
   try {
@@ -19,13 +27,20 @@ export const fetchManagedCompetitions = async (client: WcaClient) => {
     // Country data is optional for rendering the competition list.
   }
 
-  const summaries: CompetitionSummary[] = competitions.map((competition) => ({
-    id: competition.id,
-    name: competition.name,
-    cityName: competition.city_name,
-    countryIso2: competition.country_iso2,
-    startDate: competition.start_date,
-  }));
+  const summaries: CompetitionSummary[] = competitions
+    .filter(
+      (competition): competition is ApiCompetition & { start_date: string } =>
+        typeof competition.start_date === "string" &&
+        competition.start_date >= cutoffDate,
+    )
+    .map((competition) => ({
+      id: competition.id,
+      name: competition.name,
+      cityName: competition.city_name,
+      countryIso2: competition.country_iso2,
+      startDate: competition.start_date,
+    }))
+    .sort((a, b) => a.startDate.localeCompare(b.startDate));
 
   return { competitions: summaries, countries };
 };
