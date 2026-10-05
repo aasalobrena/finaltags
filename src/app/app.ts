@@ -46,7 +46,7 @@ export const createApp = (app: HTMLElement) => {
     return true;
   };
 
-  const refreshCompetitions = async () => {
+  const loadManagedCompetitions = async () => {
     const result = await fetchManagedCompetitions(client);
     state.competitions = result.competitions;
     state.countries = result.countries;
@@ -91,7 +91,7 @@ export const createApp = (app: HTMLElement) => {
     try {
       if (state.competitions.length === 0) {
         renderLoading(app, state);
-        await refreshCompetitions();
+        await loadManagedCompetitions();
       }
 
       if (!route.competitionId) {
@@ -153,11 +153,6 @@ export const createApp = (app: HTMLElement) => {
         navigate("/");
         Object.assign(state, createInitialState());
         client.setToken(null);
-        render();
-        return;
-      case "refresh":
-        renderLoading(app, state);
-        await refreshCompetitions();
         render();
         return;
       case "download-pdf": {

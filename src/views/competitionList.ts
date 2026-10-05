@@ -17,6 +17,6 @@ export const renderCompetitionList = (app: HTMLElement, state: AppState) => {
 
   app.innerHTML = renderShell(
     state,
-    `<div class="list-head"><h1>Your competitions</h1><button class="link-button" data-action="refresh">Refresh</button></div>${renderNotice(state.message)}<div class="competition-list">${rows || `<p class="empty">We couldn't find any competitions you manage.</p>`}</div>`,
+    `<div class="list-head"><h1>Your competitions</h1></div>${renderNotice(state.message)}<div class="competition-list">${rows || `<p class="empty">We couldn't find any competitions you manage.</p>`}</div>`,
   );
 };
