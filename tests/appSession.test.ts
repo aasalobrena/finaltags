@@ -43,3 +43,88 @@ describe("expired WCA session", () => {
     expect(app.innerHTML).not.toContain("Sign out");
   });
 });
+
+describe("public competition printing", () => {
+  it("loads an unmanaged competition's public WCIF and redirects settings to printing", async () => {
+    const app = {
+      innerHTML: "",
+      addEventListener: vi.fn(),
+    };
+    const replaceState = vi.fn();
+    const wcif = {
+      formatVersion: "2.1",
+      id: "Public_2026",
+      name: "Public competition",
+      shortName: "Public",
+      persons: [],
+      events: [],
+      schedule: {
+        startDate: "2026-10-10",
+        numberOfDays: 1,
+        venues: [],
+      },
+      series: [],
+      competitorLimit: null,
+      extensions: [],
+      registrationInfo: {
+        openTime: "2026-01-01T00:00:00Z",
+        closeTime: "2026-01-02T00:00:00Z",
+        baseEntryFee: 0,
+        currencyCode: "EUR",
+        onTheSpotRegistration: false,
+        useWcaRegistration: false,
+      },
+    };
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response("[]", { status: 200 }))
+      .mockResolvedValueOnce(new Response("[]", { status: 200 }))
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(wcif), { status: 200 }),
+      );
+
+    vi.stubGlobal("localStorage", {
+      getItem: vi.fn().mockReturnValue("valid-token"),
+      removeItem: vi.fn(),
+      setItem: vi.fn(),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    vi.stubGlobal("document", {
+      querySelector: vi.fn().mockReturnValue(null),
+      createElement: vi.fn().mockReturnValue({}),
+      head: { append: vi.fn() },
+    });
+    vi.stubGlobal("window", {
+      location: {
+        pathname: "/Public_2026/configuration",
+        hash: "",
+        origin: "https://aasalobrena.github.io",
+      },
+      history: {
+        pushState: vi.fn(),
+        replaceState,
+      },
+      addEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+      setTimeout,
+    });
+
+    await createApp(app as unknown as HTMLElement).start();
+
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      3,
+      "https://www.worldcubeassociation.org/api/v0/competitions/Public_2026/wcif/version/2",
+      expect.objectContaining({
+        headers: { Accept: "application/json" },
+      }),
+    );
+    expect(app.innerHTML).toContain("Public competition");
+    expect(app.innerHTML).toContain("Print");
+    expect(app.innerHTML).not.toContain("Settings");
+    expect(replaceState).toHaveBeenCalledWith(
+      {},
+      "",
+      "/Public_2026/printing",
+    );
+  });
+});

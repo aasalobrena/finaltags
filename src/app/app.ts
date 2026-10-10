@@ -2,6 +2,7 @@ import type { EventId, RegionType } from "../types/wcif";
 import {
   fetchCompetitionWcif,
   fetchManagedCompetitions,
+  fetchPublicCompetitionWcif,
   fetchPsychSheet,
   patchCompetitionExtensions,
 } from "../api/competitionApi";
@@ -29,11 +30,16 @@ const isPrimaryNavigationClick = (event: MouseEvent) =>
 export const createApp = (app: HTMLElement) => {
   const state = createInitialState();
   const client = new WcaClient();
+  const publicClient = new WcaClient();
 
   const render = () => renderApp(app, state);
 
-  const handleUnauthorized = (error: unknown) => {
-    if (!(error instanceof WcaApiError) || error.status !== 401) {
+  const handleUnauthorized = (error: unknown, shouldLogout = true) => {
+    if (
+      !shouldLogout ||
+      !(error instanceof WcaApiError) ||
+      error.status !== 401
+    ) {
       return false;
     }
 
@@ -58,14 +64,10 @@ export const createApp = (app: HTMLElement) => {
       (candidate) => candidate.id === competitionId,
     );
 
-    if (!competition) {
-      throw new Error(
-        "You don't have access to that competition, or it doesn't exist.",
-      );
-    }
-
     renderLoading(app, state);
-    const wcif = await fetchCompetitionWcif(client, competition.id);
+    const wcif = competition
+      ? await fetchCompetitionWcif(client, competition.id)
+      : await fetchPublicCompetitionWcif(publicClient, competitionId);
 
     if (!wcif.formatVersion?.startsWith("2.")) {
       throw new Error(
@@ -73,7 +75,12 @@ export const createApp = (app: HTMLElement) => {
       );
     }
 
-    state.competition = competition;
+    state.competition = competition ?? {
+      id: wcif.id,
+      name: wcif.name,
+      startDate: wcif.schedule?.startDate,
+    };
+    state.canConfigureCompetition = Boolean(competition);
     state.wcif = wcif;
     state.psychSheets = {};
     state.selectedEventIds = [];
@@ -82,6 +89,7 @@ export const createApp = (app: HTMLElement) => {
   const openRoute = async () => {
     const route = readRoute();
     state.message = undefined;
+    let loadingManagedCompetitions = false;
 
     if (!state.token) {
       render();
@@ -91,11 +99,14 @@ export const createApp = (app: HTMLElement) => {
     try {
       if (state.competitions.length === 0) {
         renderLoading(app, state);
+        loadingManagedCompetitions = true;
         await loadManagedCompetitions();
+        loadingManagedCompetitions = false;
       }
 
       if (!route.competitionId) {
         state.competition = undefined;
+        state.canConfigureCompetition = false;
         state.wcif = undefined;
         state.view = "list";
         render();
@@ -106,17 +117,33 @@ export const createApp = (app: HTMLElement) => {
         await loadCompetition(route.competitionId);
       }
 
-      state.view = route.view;
+      const view =
+        route.view === "config" && !state.canConfigureCompetition
+          ? "print"
+          : route.view;
+      state.view = view;
       render();
 
-      const path = pathFor(route.competitionId, route.view);
+      const path = pathFor(route.competitionId, view);
       if (window.location.pathname !== path) {
         window.history.replaceState({}, "", path);
       }
     } catch (error) {
-      if (handleUnauthorized(error)) return;
+      if (
+        handleUnauthorized(
+          error,
+          loadingManagedCompetitions ||
+            !route.competitionId ||
+            state.competitions.some(
+              (candidate) => candidate.id === route.competitionId,
+            ),
+        )
+      ) {
+        return;
+      }
 
       state.competition = undefined;
+      state.canConfigureCompetition = false;
       state.wcif = undefined;
       state.view = "list";
       state.message = getErrorMessage(error, "Couldn't load that page.");
@@ -230,7 +257,7 @@ export const createApp = (app: HTMLElement) => {
 
     if (target.checked && state.competition) {
       state.psychSheets[eventId] ??= await fetchPsychSheet(
-        client,
+        state.canConfigureCompetition ? client : publicClient,
         state.competition.id,
         eventId,
       );
@@ -247,7 +274,7 @@ export const createApp = (app: HTMLElement) => {
     try {
       await handleEventChange(event.target as HTMLInputElement);
     } catch (error) {
-      if (handleUnauthorized(error)) return;
+      if (handleUnauthorized(error, state.canConfigureCompetition)) return;
 
       state.message = getErrorMessage(error, "Couldn't load the psych sheet.");
       render();
@@ -258,6 +285,7 @@ export const createApp = (app: HTMLElement) => {
     const form = event.target as HTMLFormElement;
     if (
       form.id !== "competition-settings-form" ||
+      !state.canConfigureCompetition ||
       !state.wcif ||
       !state.competition
     ) {

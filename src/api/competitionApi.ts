@@ -62,6 +62,14 @@ export const fetchCompetitionWcif = (
     `/competitions/${encodeURIComponent(competitionId)}/wcif/version/${WCIF_MAJOR_VERSION}/`,
   );
 
+export const fetchPublicCompetitionWcif = (
+  client: WcaClient,
+  competitionId: string,
+) =>
+  client.get<WcifWithParticipation>(
+    `/competitions/${encodeURIComponent(competitionId)}/wcif/version/${WCIF_MAJOR_VERSION}`,
+  );
+
 export const patchCompetitionExtensions = async (
   client: WcaClient,
   competitionId: string,

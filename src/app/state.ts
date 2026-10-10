@@ -5,6 +5,7 @@ export const createInitialState = (): AppState => ({
   competitions: [],
   countries: [],
   psychSheets: {},
+  canConfigureCompetition: false,
   view: "list",
   selectedEventIds: [],
 });

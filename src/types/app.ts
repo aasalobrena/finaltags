@@ -11,6 +11,7 @@ export type AppState = {
   countries: ApiCountry[];
   psychSheets: Record<string, PsychSheet>;
   competition?: CompetitionSummary;
+  canConfigureCompetition: boolean;
   wcif?: WcifWithParticipation;
   view: View;
   selectedEventIds: EventId[];

@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   fetchManagedCompetitions,
+  fetchPublicCompetitionWcif,
   patchCompetitionExtensions,
 } from "../src/api/competitionApi";
 import { WcaApiError, WcaClient } from "../src/api/wcaClient";
@@ -46,6 +47,31 @@ describe("fetchManagedCompetitions", () => {
       "next-week",
       "far-future",
     ]);
+  });
+});
+
+describe("fetchPublicCompetitionWcif", () => {
+  it("requests the public WCIF in the supported major version without an authorization header", async () => {
+    const wcif = { id: "Public_2026", name: "Public competition" };
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(wcif), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await fetchPublicCompetitionWcif(
+      new WcaClient(),
+      "Public_2026",
+    );
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://www.worldcubeassociation.org/api/v0/competitions/Public_2026/wcif/version/2",
+      expect.objectContaining({
+        headers: { Accept: "application/json" },
+      }),
+    );
   });
 });
 
