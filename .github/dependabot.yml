@@ -4,6 +4,6 @@ updates:
     directory: /
     schedule:
       interval: monthly
-      day: "1"
+      day: monday
       timezone: Europe/Madrid
     open-pull-requests-limit: 10
