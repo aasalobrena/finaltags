@@ -58,6 +58,139 @@
   font-size: 14px;
 }
 
+.custom-tags-editor {
+  display: grid;
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.custom-tags-intro h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.custom-tags-intro p,
+.custom-tags-save-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+#custom-tags-form {
+  display: grid;
+  gap: 16px;
+}
+
+.custom-tags-global {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.custom-tags-event-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.custom-tags-add-controls {
+  grid-template-columns: repeat(2, minmax(180px, 1fr)) auto;
+}
+
+.custom-tags-competitors {
+  display: grid;
+  gap: 12px;
+}
+
+.custom-tag-competitor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  align-items: end;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.custom-tag-competitor legend {
+  padding: 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.custom-tag-remove {
+  justify-self: start;
+  margin-bottom: 8px;
+}
+
+.custom-tag-remove:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.custom-tags-event-controls .custom-tags-actions {
+  padding-bottom: 1px;
+}
+
+.custom-tags-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 560px) {
+  .custom-tags-event-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+.button--secondary {
+  color: var(--accent);
+  background: #fff;
+}
+
+.button--secondary:hover {
+  color: #fff;
+}
+
+.tag-logo--custom {
+  padding: 4px;
+}
+
+.tag-logo--custom img {
+  position: relative;
+  inset: auto;
+  width: 90%;
+  height: 72%;
+}
+
+.tag-event--custom {
+  padding: 8px;
+}
+
+.tag-event--custom img {
+  max-width: 90%;
+  max-height: 72%;
+  object-fit: contain;
+}
+
+.tag-event--custom span {
+  overflow-wrap: anywhere;
+  font-size: inherit;
+}
+
+.custom-tag-competitor output {
+  min-height: 38px;
+  padding: 9px 10px;
+  background: #f5f7f9;
+  border: 1px solid #cbd5df;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 .event-options {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -104,6 +237,22 @@
 .event-option .cubing-icon {
   font-size: 26px;
   line-height: 1;
+}
+
+.event-option__custom-logo,
+.event-option__custom-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.event-option__custom-icon {
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .event-name {

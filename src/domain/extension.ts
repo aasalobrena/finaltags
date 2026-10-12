@@ -5,6 +5,7 @@ import type {
   RegionConfig,
   WcifWithParticipation,
 } from "../types/wcif";
+import type { CustomTagsConfig } from "../types/domain";
 
 type FinaltagsExtension = NonNullable<Wcif["extensions"]>[number] & {
   data?: FinaltagsExtensionData;
@@ -23,10 +24,11 @@ export const getFinaltagsData = (wcif?: Wcif) =>
 export const getLogo = (wcif?: Wcif) => getFinaltagsData(wcif)?.logoUrl ?? "";
 
 export const buildCompetitionExtensions = (
-  wcif: WcifWithParticipation,
+  wcif: Pick<WcifWithParticipation, "extensions">,
   data: FinaltagsExtensionData & {
     region: RegionConfig;
     paperSize: NonNullable<FinaltagsExtensionData["paperSize"]>;
+    customTags?: CustomTagsConfig[];
   },
 ) => [
   ...(wcif.extensions ?? []).filter(

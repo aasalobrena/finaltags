@@ -1,19 +1,86 @@
 {
   "$id": "https://aasalobrena.github.io/finaltags/wcif-extension.json",
   "title": "FinalTags competition settings",
-  "description": "Describes the `data` of the WCIF extension `finaltags.competition`, which FinalTags (https://aasalobrena.github.io/finaltags/) attaches to a competition. It stores the settings used to print the table cards of each event's final round. Every property is optional; FinalTags falls back to the defaults noted below.",
+  "description": "Describes the `data` of the WCIF extension `finaltags.competition`, which FinalTags (https://aasalobrena.github.io/finaltags/) attaches to a competition. It stores print settings and optional custom tag data. Every property is optional; FinalTags falls back to the defaults noted below.",
   "type": "object",
   "properties": {
     "logoUrl": {
       "type": "string",
-      "description": "Absolute URL of the competition logo, printed on every card. An empty string means no logo.",
+      "description": "Absolute URL of the competition logo, printed on every tag. An empty string means no logo.",
       "default": ""
     },
     "paperSize": {
       "type": "string",
-      "description": "Paper size used when printing the cards, two cards per sheet. `a4` is 210 x 297 mm and `letter` is 8.5 x 11 in.",
+      "description": "Paper size used when printing tags, two tags per sheet. `a4` is 210 x 297 mm and `letter` is 8.5 x 11 in.",
       "enum": ["a4", "letter"],
       "default": "a4"
+    },
+    "customTags": {
+      "type": "array",
+      "description": "Custom tag designs and competitor data for unofficial events or side events. Each item configures one event.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User-defined name used to identify this set of event tags."
+          },
+          "competitionLogoUrl": {
+            "type": "string",
+            "description": "Optional competition logo URL shown on custom tags."
+          },
+          "eventId": {
+            "type": "string",
+            "description": "WCA event id, or `custom` when using a custom event logo."
+          },
+          "eventLogoUrl": {
+            "type": "string",
+            "description": "Custom event logo URL, used when eventId is `custom`."
+          },
+          "competitors": {
+            "type": "array",
+            "description": "Competitors and individually customized seed tag values.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "personId": {
+                  "type": "string",
+                  "description": "WCIF registrant id, or `custom` for a manually entered name."
+                },
+                "name": { "type": "string" },
+                "flag": {
+                  "type": "string",
+                  "description": "ISO 3166-1 alpha-2 flag country, empty for no flag, or `custom`."
+                },
+                "flagUrl": {
+                  "type": "string",
+                  "description": "Optional custom flag image URL, overriding the flag for the country code."
+                },
+                "seed": { "type": "string" },
+                "result": {
+                  "type": "string",
+                  "description": "Free-form seed result printed exactly as entered."
+                }
+              },
+              "required": [
+                "personId",
+                "name",
+                "flag",
+                "flagUrl",
+                "seed",
+                "result"
+              ]
+            }
+          }
+        },
+        "required": [
+          "name",
+          "competitionLogoUrl",
+          "eventId",
+          "eventLogoUrl",
+          "competitors"
+        ]
+      }
     },
     "region": {
       "type": "object",
@@ -30,7 +97,7 @@
         },
         "prioritizeLocals": {
           "type": "boolean",
-          "description": "When true, local competitors are listed first and their seeds are numbered among locals only. When false, the region is stored but has no effect on the cards."
+          "description": "When true, local competitors are listed first and their seeds are numbered among locals only. When false, the region is stored but has no effect on the tags."
         }
       },
       "required": ["type", "id", "prioritizeLocals"]

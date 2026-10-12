@@ -13,6 +13,6 @@ export const renderCompetitionPage = (state: AppState, body: string) => {
 
   return renderShell(
     state,
-    `<h1>${escapeHtml(competition.name)}</h1><nav class="tabs">${renderTab("print", "Print")}${state.canConfigureCompetition ? renderTab("config", "Settings") : ""}</nav>${body}`,
+    `<h1>${escapeHtml(competition.name)}</h1><nav class="tabs">${renderTab("print", "Printing")}${renderTab("tags", "Custom tags")}${state.canConfigureCompetition ? renderTab("config", "Settings") : ""}</nav>${body}`,
   );
 };

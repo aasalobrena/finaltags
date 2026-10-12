@@ -1,4 +1,5 @@
 import type { Competition as Wcif, EventId, Result, Round } from "@wca/helpers";
+import type { CustomTagsConfig } from "./domain";
 
 export type ParticipationSource =
   | { type: "registrations" }
@@ -33,6 +34,7 @@ export type FinaltagsExtensionData = {
   logoUrl?: string;
   region?: RegionConfig;
   paperSize?: PaperSize;
+  customTags?: CustomTagsConfig[];
 };
 
 export type { EventId, Result, Round, Wcif };

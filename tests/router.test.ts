@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { navigationPath, pathFor, readRoute } from "../src/app/router";
+import {
+  navigationPath,
+  pathFor,
+  readRoute,
+} from "../src/app/router";
 
 describe("router", () => {
   it("reads the competition list from the GitHub Pages base path", () => {
@@ -8,6 +12,12 @@ describe("router", () => {
 
   it("reads the competition list when the base path has no trailing slash", () => {
     expect(readRoute("/finaltags", "/finaltags/")).toEqual({ view: "list" });
+  });
+
+  it("does not expose custom tags as a standalone route", () => {
+    expect(readRoute("/finaltags/custom", "/finaltags/")).toEqual({
+      view: "list",
+    });
   });
 
   it("reads a printing route beneath the base path", () => {
@@ -30,9 +40,29 @@ describe("router", () => {
     });
   });
 
+  it("reads a competition tags route", () => {
+    expect(readRoute("/finaltags/Example_2026/tags", "/finaltags/")).toEqual({
+      competitionId: "Example_2026",
+      view: "tags",
+    });
+  });
+
+  it("keeps the previous competition custom route as an alias", () => {
+    expect(readRoute("/finaltags/Example_2026/custom", "/finaltags/")).toEqual({
+      competitionId: "Example_2026",
+      view: "tags",
+    });
+  });
+
   it("encodes competition ids when building a route", () => {
     expect(pathFor("A competition", "config", "/finaltags/")).toBe(
       "/finaltags/A%20competition/configuration",
+    );
+  });
+
+  it("builds custom routes for the tags view", () => {
+    expect(pathFor("A competition", "tags", "/finaltags/")).toBe(
+      "/finaltags/A%20competition/custom",
     );
   });
 

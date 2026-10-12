@@ -18,6 +18,23 @@ export type Competitor = {
   isLocal: boolean;
 };
 
+export type CustomTagCompetitor = {
+  personId: string;
+  name: string;
+  flag: string;
+  flagUrl: string;
+  seed: string;
+  result: string;
+};
+
+export type CustomTagsConfig = {
+  name: string;
+  competitionLogoUrl: string;
+  eventId: string;
+  eventLogoUrl: string;
+  competitors: CustomTagCompetitor[];
+};
+
 export type CompetitorDerivationInput = {
   wcif: WcifWithParticipation;
   eventId: EventId;

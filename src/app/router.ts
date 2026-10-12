@@ -18,10 +18,16 @@ export const readRoute = (
   pathname = window.location.pathname,
   baseUrl = BASE_URL,
 ): Route => {
-  const [competitionId, section] = relativePath(pathname, baseUrl)
+  const parts = relativePath(pathname, baseUrl)
     .split("/")
     .filter(Boolean)
     .map(decodeURIComponent);
+
+  if (parts.length === 1 && parts[0] === "custom") {
+    return { view: "list" };
+  }
+
+  const [competitionId, section] = parts;
 
   if (!competitionId) {
     return { view: "list" };
@@ -29,7 +35,12 @@ export const readRoute = (
 
   return {
     competitionId,
-    view: section === "configuration" ? "config" : "print",
+    view:
+      section === "configuration"
+        ? "config"
+        : section === "tags" || section === "custom"
+          ? "tags"
+          : "print",
   };
 };
 
@@ -39,7 +50,11 @@ export const pathFor = (
   baseUrl = BASE_URL,
 ) =>
   `${baseUrl}${encodeURIComponent(competitionId)}/${
-    view === "config" ? "configuration" : "printing"
+    view === "config"
+      ? "configuration"
+      : view === "tags"
+        ? "custom"
+        : "printing"
   }`;
 
 export const navigationPath = (path: string, baseUrl = BASE_URL) =>
