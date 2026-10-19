@@ -1,4 +1,4 @@
-import type { EventId } from "../types/wcif";
+import type { EventId } from "@wca/helpers";
 import type {
   Competitor,
   CustomTagCompetitor,

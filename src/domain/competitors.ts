@@ -1,6 +1,5 @@
-import type { Result, Round } from "@wca/helpers";
+import type { ParticipationSource, Result, Round } from "@wca/helpers";
 import type { CompetitorDerivationInput, Competitor } from "../types/domain";
-import type { ParticipationSource } from "../types/wcif";
 import { getRegion, isLocalCompetitor } from "./region";
 
 const getRoundActivityIds = (
@@ -24,12 +23,12 @@ const scoreForRound = (result: Result, round: Round) =>
 
 const getParticipationSource = (
   round: CompetitorDerivationInput["wcif"]["events"][number]["rounds"][number],
-): ParticipationSource | undefined =>
-  round.participationRuleset?.participationSource;
+): ParticipationSource | null =>
+  round.participationRuleset?.participationSource ?? null;
 
 const getSourceRounds = (
   rounds: CompetitorDerivationInput["wcif"]["events"][number]["rounds"],
-  source: ParticipationSource | undefined,
+  source: ParticipationSource | null,
 ) => {
   if (source?.type === "round") {
     return rounds.filter((round) => round.id === source.roundId);

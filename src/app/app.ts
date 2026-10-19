@@ -1,5 +1,6 @@
 import { getEventName } from "@wca/helpers";
-import type { EventId, RegionType } from "../types/wcif";
+import type { EventId } from "@wca/helpers";
+import type { RegionType } from "../types/wcif";
 import {
   fetchCompetitionWcif,
   fetchManagedCompetitions,

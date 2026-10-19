@@ -1,5 +1,5 @@
 import { getEventName } from "@wca/helpers";
-import type { EventId } from "../types/wcif";
+import type { EventId } from "@wca/helpers";
 import type { AppState } from "../types/app";
 import type {
   CustomTagCompetitor,

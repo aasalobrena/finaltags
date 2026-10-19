@@ -4,7 +4,7 @@ import {
   formatMultiResult,
   getEventResultType,
 } from "@wca/helpers";
-import type { EventId } from "../types/wcif";
+import type { EventId } from "@wca/helpers";
 
 export const formatResult = (eventId: EventId, value?: number) => {
   if (!value) return "-";

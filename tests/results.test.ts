@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { EventId } from "../src/types/wcif";
+import type { EventId } from "@wca/helpers";
 import { formatResult } from "../src/domain/results";
 
 describe("formatResult", () => {

@@ -1,4 +1,5 @@
-import type { EventId, WcifWithParticipation, RegionConfig } from "./wcif";
+import type { Competition, EventId } from "@wca/helpers";
+import type { RegionConfig } from "./wcif";
 import type { ApiCountry, PsychSheetByEvent } from "./api";
 
 export type CompetitionSummary = {
@@ -36,7 +37,7 @@ export type CustomTagsConfig = {
 };
 
 export type CompetitorDerivationInput = {
-  wcif: WcifWithParticipation;
+  wcif: Competition;
   eventId: EventId;
   countries: ApiCountry[];
   psychSheet?: PsychSheetByEvent[EventId];

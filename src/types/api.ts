@@ -1,4 +1,4 @@
-import type { EventId } from "./wcif";
+import type { EventId } from "@wca/helpers";
 
 export type ApiCompetition = {
   id: string;

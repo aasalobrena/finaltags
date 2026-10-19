@@ -1,5 +1,6 @@
+import type { Competition } from "@wca/helpers";
 import type { ApiCountry } from "../types/api";
-import type { RegionConfig, Wcif } from "../types/wcif";
+import type { RegionConfig } from "../types/wcif";
 import { getFinaltagsData } from "./extension";
 
 export const continentOptions = [
@@ -12,7 +13,7 @@ export const continentOptions = [
 ] as const;
 
 export const getRegion = (
-  wcif: Wcif | undefined,
+  wcif: Competition | undefined,
   competitionCountryIso2 = "",
 ): RegionConfig =>
   getFinaltagsData(wcif)?.region ?? {

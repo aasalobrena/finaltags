@@ -1,24 +1,4 @@
-import type { Competition as Wcif, EventId, Result, Round } from "@wca/helpers";
 import type { CustomTagsConfig } from "./domain";
-
-export type ParticipationSource =
-  | { type: "registrations" }
-  | { type: "round"; roundId: string }
-  | { type: "linkedRounds"; roundIds: string[] };
-
-export type RoundWithParticipation = Round & {
-  participationRuleset?: {
-    participationSource?: ParticipationSource;
-  };
-};
-
-export type WcifWithParticipation = Omit<Wcif, "events"> & {
-  events: Array<
-    Omit<Wcif["events"][number], "rounds"> & {
-      rounds: RoundWithParticipation[];
-    }
-  >;
-};
 
 export type RegionType = "world" | "continent" | "country";
 
@@ -36,5 +16,3 @@ export type FinaltagsExtensionData = {
   paperSize?: PaperSize;
   customTags?: CustomTagsConfig[];
 };
-
-export type { EventId, Result, Round, Wcif };

@@ -212,8 +212,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       '@wca/helpers':
-        specifier: 1.1.9
-        version: 1.1.9
+        specifier: 2.0.0
+        version: 2.0.0
     devDependencies:
       typescript:
         specifier: 7.0.2
@@ -488,8 +488,8 @@ packages:
   '@vitest/spy@5.0.3':
     resolution: {integrity: sha512-XhFysQTB8AZ+P4gMi+Lpo99vg2AZi0qKpaB9yXQl37+CaMEAPO3iH/wGVnSyL5MPERiLezpqTVtrR6UZH5GCXg==}
 
-  '@wca/helpers@1.1.9':
-    resolution: {integrity: sha512-hCi+VnPvRanvVIfZkDnZ+FbcnwUGwD11hsdyrmuUUzhICVxaEyDKQGMc5i04zZkLqe//n8vwnt6uvauLxluGbw==}
+  '@wca/helpers@2.0.0':
+    resolution: {integrity: sha512-VYcby20Y9Uf7FWSxvzHbJRp6eOW7Gb4z7Nvy+8ggjxIKqfndAewxysiYop2LZ6VXnJavtV4SPy2AFhAH+OT4Bg==}
 
   assertion-error@2.0.1:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
@@ -892,7 +892,7 @@ snapshots:
 
   '@vitest/spy@5.0.3': {}
 
-  '@wca/helpers@1.1.9': {}
+  '@wca/helpers@2.0.0': {}
 
   assertion-error@2.0.1: {}
 

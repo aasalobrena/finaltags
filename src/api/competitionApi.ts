@@ -1,7 +1,7 @@
+import type { Competition, EventId } from "@wca/helpers";
 import { WCIF_MAJOR_VERSION } from "../config";
 import type { ApiCompetition, ApiCountry, PsychSheet } from "../types/api";
 import type { CompetitionSummary } from "../types/domain";
-import type { EventId, WcifWithParticipation } from "../types/wcif";
 import { WcaApiError, WcaClient } from "./wcaClient";
 
 export const fetchManagedCompetitions = async (client: WcaClient) => {
@@ -58,7 +58,7 @@ export const fetchCompetitionWcif = (
   client: WcaClient,
   competitionId: string,
 ) =>
-  client.get<WcifWithParticipation>(
+  client.get<Competition>(
     `/competitions/${encodeURIComponent(competitionId)}/wcif/version/${WCIF_MAJOR_VERSION}/`,
   );
 
@@ -66,14 +66,14 @@ export const fetchPublicCompetitionWcif = (
   client: WcaClient,
   competitionId: string,
 ) =>
-  client.get<WcifWithParticipation>(
+  client.get<Competition>(
     `/competitions/${encodeURIComponent(competitionId)}/wcif/version/${WCIF_MAJOR_VERSION}`,
   );
 
 export const patchCompetitionExtensions = async (
   client: WcaClient,
   competitionId: string,
-  wcif: WcifWithParticipation,
+  wcif: Competition,
 ) => {
   const headers = { "Content-Type": "application/json" };
   const body = JSON.stringify({

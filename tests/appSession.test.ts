@@ -63,7 +63,7 @@ describe("public competition printing", () => {
         numberOfDays: 1,
         venues: [],
       },
-      series: [],
+      series: null,
       competitorLimit: null,
       extensions: [],
       registrationInfo: {

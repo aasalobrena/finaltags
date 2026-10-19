@@ -5,7 +5,7 @@ import {
   patchCompetitionExtensions,
 } from "../src/api/competitionApi";
 import { WcaApiError, WcaClient } from "../src/api/wcaClient";
-import type { WcifWithParticipation } from "../src/types/wcif";
+import type { Competition } from "@wca/helpers";
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -76,7 +76,7 @@ describe("fetchPublicCompetitionWcif", () => {
 });
 
 describe("patchCompetitionExtensions", () => {
-  const wcif: WcifWithParticipation = {
+  const wcif: Competition = {
     formatVersion: "2.1",
     id: "TestCompetition",
     name: "Test competition",
@@ -88,7 +88,7 @@ describe("patchCompetitionExtensions", () => {
       numberOfDays: 1,
       venues: [],
     },
-    series: [],
+    series: null,
     competitorLimit: null,
     extensions: [],
     registrationInfo: {

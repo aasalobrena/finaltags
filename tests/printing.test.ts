@@ -6,7 +6,7 @@ import {
   createInitialState,
 } from "../src/app/state";
 import type { AppState } from "../src/types/app";
-import type { WcifWithParticipation } from "../src/types/wcif";
+import type { Competition } from "@wca/helpers";
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -23,7 +23,7 @@ const createState = (): AppState => ({
     events: [],
     persons: [],
     extensions: [],
-  } as unknown as WcifWithParticipation,
+  } as unknown as Competition,
   view: "print",
   selectedEventIds: [],
   customTags: [
@@ -119,7 +119,7 @@ describe("custom tag printing", () => {
       events: [],
       persons: [],
       extensions: [],
-    } as unknown as WcifWithParticipation;
+    } as unknown as Competition;
     state.view = "tags";
     const app = { innerHTML: "" } as HTMLElement;
 
